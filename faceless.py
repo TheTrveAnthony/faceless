@@ -8,14 +8,6 @@ import cv2 as cv
 from functions import erase_face2
 
 
-""" 
-Variables index :
-
-
-"""
-
-
-
 # First of all we gotta turn on the cam and make sure it works well
 
 
