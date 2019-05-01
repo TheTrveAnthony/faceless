@@ -339,7 +339,7 @@ def erase_face2(faces):
 			
 	# Filtering 
 	# First we gotta define our filter, it's a basic mean filter
-	n = 3
+	n = 5
 	kernel = np.ones((n, n),np.float32)/n**2
 
 
@@ -366,20 +366,20 @@ def erase_face2(faces):
 			
 			#now we can hide him, or her
 			
-			reye = homothetia(f_landmarks['left_eye'], 1.5)
-			
+			r_eye = homothetia(f_landmarks['right_eye'], 2)
+			l_eye = homothetia(f_landmarks['left_eye'], 2)
 			
 			#cv.fillPoly(faces, pts = [np.array(f_landmarks['right_eye'], np.int32).reshape(-1, 1, 2)], color = clr)
-			cv.fillPoly(faces, pts = [np.array(f_landmarks['right_eye'], np.int32).reshape(-1, 1, 2)], color = clr)
-			cv.fillPoly(faces, pts = [reye], color = clr)
+			cv.fillPoly(faces, pts = [l_eye], color = clr)
+			cv.fillPoly(faces, pts = [r_eye], color = clr)
 
 
 
 
 			#ln, rn, tn, bn = set_roi(f_landmarks['nose_tip'] + f_landmarks['nose_bridge'])
-			ln, rn, tn, bn = set_roi(f_landmarks['right_eye'])
+			ln, rn, tn, bn = set_roi(r_eye)
 			faces[tn:bn, ln:rn] = cv.filter2D(faces[tn:bn, ln:rn], -1, kernel)
-			ln, rn, tn, bn = set_roi(f_landmarks['left_eye'])
+			ln, rn, tn, bn = set_roi(l_eye)
 			faces[tn:bn, ln:rn] = cv.filter2D(faces[tn:bn, ln:rn], -1, kernel)
 
 
